@@ -16,6 +16,10 @@ require 'bcrypt'
 require 'scrypt'
 
 # methods
+def read_in_txt_from_wordlist(list, line_count)
+    lines = File.foreach(list).first(line_count)
+end
+
 def create_hash_bcrypt(input)
     hash = BCrypt::Password.create(input)
 end
@@ -40,32 +44,32 @@ end
 text = "kevin"
 puts create_hash_sha512(text)
 
-# Excel 
-p = Axlsx::Package.new
+# # Excel 
+# p = Axlsx::Package.new
 
-# Required for use with numbers
-p.use_shared_strings = true
+# # Required for use with numbers
+# p.use_shared_strings = true
 
-p.workbook do |wb|
-    # define your regular styles
-    styles = wb.styles
-    title = styles.add_style :sz => 15, :b => true, :u => true
-    default = styles.add_style :border => Axlsx::STYLE_THIN_BORDER
-    pascal_colors = { :bg_color => '567DCC', :fg_color => 'FFFF00' }
-    pascal = styles.add_style pascal_colors.merge({ :border => Axlsx::STYLE_THIN_BORDER, :b => true })
-    header = styles.add_style :bg_color => '00', :fg_color => 'FF', :b => true
-    money = styles.add_style :format_code => '#,###,##0', :border => Axlsx::STYLE_THIN_BORDER
-    money_pascal = styles.add_style pascal_colors.merge({ :format_code => '#,###,##0', :border => Axlsx::STYLE_THIN_BORDER })
-    percent = styles.add_style :num_fmt => Axlsx::NUM_FMT_PERCENT, :border => Axlsx::STYLE_THIN_BORDER
-    percent_pascal = styles.add_style pascal_colors.merge({ :num_fmt => Axlsx::NUM_FMT_PERCENT, :border => Axlsx::STYLE_THIN_BORDER })
+# p.workbook do |wb|
+#     # define your regular styles
+#     styles = wb.styles
+#     title = styles.add_style :sz => 15, :b => true, :u => true
+#     default = styles.add_style :border => Axlsx::STYLE_THIN_BORDER
+#     pascal_colors = { :bg_color => '567DCC', :fg_color => 'FFFF00' }
+#     pascal = styles.add_style pascal_colors.merge({ :border => Axlsx::STYLE_THIN_BORDER, :b => true })
+#     header = styles.add_style :bg_color => '00', :fg_color => 'FF', :b => true
 
 
-    wb.add_worksheet(:name => 'CTC399 Password Hashes') do  |ws|
-        ws.add_row ['Password Hashing Questions'], :style => title
-        ws.add_row
-        ws.add_row ['Questions', 'Answers', 'Wordlist', 'Encryption'], :style => header
+#     wb.add_worksheet(:name => 'CTC399 Password Hashes') do  |ws|
+#         ws.add_row ['CTC399 Password Hashes Questions - Kevin Ramirez (Student ID# 211141309)'], :style => title
+#         ws.add_row
+#         ws.add_row ['Questions', 'Answers', 'Wordlist', 'Encryption'], :style => header
+
+#         for a in 0..3 do 
+#             ws.add_row ['password hash', 'password', 'wordlist', 'sha-256']
+#         end
         
-        ws.column_widths 96, 26, 31, 25 
-    end
-end
-p.serialize 'test.xlsx'
+#         ws.column_widths 96, 26, 31, 25 
+#     end
+# end
+# p.serialize 'test.xlsx'
