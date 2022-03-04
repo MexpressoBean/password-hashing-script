@@ -537,7 +537,6 @@ beaver
 benny
 bigmac
 bingo
-bitch
 blonde
 boogie
 boston
@@ -571,7 +570,6 @@ coltrane
 compaq
 conrad
 cooper
-cooter
 copper
 cosmos
 cracker
@@ -588,9 +586,7 @@ deutsch
 diablo
 dilbert
 dollars
-dookie
 doom
-dumbass
 dundee
 e-mail
 elizabeth
@@ -767,7 +763,6 @@ seven
 shadow1
 sheba
 shelby
-shit
 shoes
 simba
 simple
@@ -915,7 +910,6 @@ basil
 basket
 bass
 batman1
-beaner
 beast
 beatrice
 beer
@@ -930,7 +924,6 @@ binky
 biology
 bishop
 bliss
-blondie
 blowfish
 bluefish
 bmw
@@ -949,10 +942,8 @@ bugsy
 bull
 bulldog
 bullet
-bullshit
 bunny
 business
-butch
 butler
 butter
 california
@@ -996,7 +987,6 @@ cordelia
 corona
 cowboys
 coyote
-crack1
 craig
 creative
 crow
@@ -1023,7 +1013,6 @@ destiny
 diana
 diane
 dickens
-dickhead
 digger
 dodger
 don
@@ -1062,7 +1051,6 @@ francine
 francois
 frank
 french
-fuckface
 fun
 gargoyle
 gasman
@@ -1093,7 +1081,6 @@ heaven
 heidi
 helen
 helena
-hell
 herzog
 hithere
 hobbit
@@ -1505,7 +1492,6 @@ Animals
 Ariel
 BOSS
 Bailey
-Bastard
 Beavis
 Bismillah
 Bonzo
@@ -1692,7 +1678,6 @@ asdfjkl
 ashley1
 ashraf
 ashton
-assmunch
 asterix
 attila
 autumn
@@ -1757,8 +1742,6 @@ blanche
 blinds
 blitz
 blood
-blowjob
-blowme
 blueeyes
 bluejean
 blues
@@ -1767,7 +1750,6 @@ bogart
 bogey
 bogus
 bombay
-boobie
 boots
 bootsie
 boulder
@@ -1895,7 +1877,6 @@ crusader
 cthulhu
 cuda
 cunningham
-cunt
 cupcake
 current
 cutlass
@@ -1905,7 +1886,6 @@ dagger
 dagger1
 daily
 dale
-dammit
 damogran
 dana
 dancer
@@ -2038,7 +2018,6 @@ froggies
 frogs
 front242
 frontier
-fucku
 fugazi
 funguy
 funtime
