@@ -39,10 +39,16 @@ end
 def create_hash_md5(input)
     hash = OpenSSL::Digest::MD5.hexdigest input
 end
-# all hashing methods work!
 
+
+# MAIN ******************************************************
 text = "kevin"
-puts create_hash_sha512(text)
+
+array = read_in_txt_from_wordlist("john.txt", 10)
+
+puts array
+
+# END MAIN **************************************************
 
 # # Excel 
 # p = Axlsx::Package.new
