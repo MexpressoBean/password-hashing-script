@@ -17,7 +17,7 @@ def read_in_txt_from_wordlist(list, line_count)
     lines = File.foreach(list).first(line_count) # return array of strings
 end
 
-def create_password_objects(list, line_count)
+def create_password_objects(list, line_count, user_name_prefix)
     password_strings = read_in_txt_from_wordlist(list, line_count)
     pass_objects =[]
 
@@ -25,26 +25,24 @@ def create_password_objects(list, line_count)
         case index
         when 0..300
           hashed_str = create_hash_md5(element.chomp)
-          pass_objects << {question: "csukram#{index}:#{hashed_str[:hash]}", answer: "#{element.chomp}", list: "#{list}", encryption: "#{hashed_str[:alg]}"}
+          pass_objects << {question: "#{user_name_prefix}#{index}:#{hashed_str[:hash]}", answer: "#{element.chomp}", list: "#{list}", encryption: "#{hashed_str[:alg]}"}
         when 301..600
           hashed_str = create_hash_sha256(element.chomp)
-          pass_objects << {question: "csukram#{index}:#{hashed_str[:hash]}", answer: "#{element.chomp}", list: "#{list}", encryption: "#{hashed_str[:alg]}"}
+          pass_objects << {question: "#{user_name_prefix}#{index}:#{hashed_str[:hash]}", answer: "#{element.chomp}", list: "#{list}", encryption: "#{hashed_str[:alg]}"}
         when 601..900
           hashed_str = create_hash_sha512(element.chomp)
-          pass_objects << {question: "csukram#{index}:#{hashed_str[:hash]}", answer: "#{element.chomp}", list: "#{list}", encryption: "#{hashed_str[:alg]}"}
+          pass_objects << {question: "#{user_name_prefix}#{index}:#{hashed_str[:hash]}", answer: "#{element.chomp}", list: "#{list}", encryption: "#{hashed_str[:alg]}"}
         when 901..1200
           hashed_str = create_hash_bcrypt(element.chomp)
-          pass_objects << {question: "csukram#{index}:#{hashed_str[:hash]}", answer: "#{element.chomp}", list: "#{list}", encryption: "#{hashed_str[:alg]}"}
+          pass_objects << {question: "#{user_name_prefix}#{index}:#{hashed_str[:hash]}", answer: "#{element.chomp}", list: "#{list}", encryption: "#{hashed_str[:alg]}"}
         when 1201..1500
           hashed_str = create_hash_scrypt(element.chomp)
-          pass_objects << {question: "csukram#{index}:#{hashed_str[:hash]}", answer: "#{element.chomp}", list: "#{list}", encryption: "#{hashed_str[:alg]}"}
+          pass_objects << {question: "#{user_name_prefix}#{index}:#{hashed_str[:hash]}", answer: "#{element.chomp}", list: "#{list}", encryption: "#{hashed_str[:alg]}"}
         else
           puts 'err'
         end
-
         puts "hashing: #{index}"
     end
-
     puts "Hashing complete!"
 
     pass_objects
@@ -77,45 +75,54 @@ def create_hash_md5(input)
     {hash: output, alg: "md5"}
 end
 
+def create_spreadsheet(row_data, file_name)
+  p = Axlsx::Package.new
 
-# MAIN ******************************************************
+# Required for use with apple numbers
+  p.use_shared_strings = true
 
-row_data = create_password_objects("john.txt", 1500)
+  p.workbook do |wb|
+      # define your regular styles
+      styles = wb.styles
+      title = styles.add_style :sz => 15, :b => true, :u => true
+      header = styles.add_style :bg_color => '00', :fg_color => 'FF', :b => true
 
-# row_data objects includes:
-# question
-# answer
-# list
-# encryption
-# 
-# END MAIN **************************************************
+      wb.add_worksheet(:name => 'hashes') do  |ws|
+          ws.add_row ['Password Hashes'], :style => title
+          ws.add_row
+          ws.add_row ['Questions', 'Answers', 'Wordlist', 'Encryption'], :style => header
 
-# Excel 
-p = Axlsx::Package.new
+          row_data.each do |p|
+              ws.add_row [p[:question], p[:answer], p[:list], p[:encryption]]
+          end
+          
+          ws.column_widths 96, 26, 16, 25 
+      end
+  end
+  p.serialize "#{file_name}.xlsx"
 
-# Required for use with numbers
-p.use_shared_strings = true
-
-p.workbook do |wb|
-    # define your regular styles
-    styles = wb.styles
-    title = styles.add_style :sz => 15, :b => true, :u => true
-    default = styles.add_style :border => Axlsx::STYLE_THIN_BORDER
-    pascal_colors = { :bg_color => '567DCC', :fg_color => 'FFFF00' }
-    pascal = styles.add_style pascal_colors.merge({ :border => Axlsx::STYLE_THIN_BORDER, :b => true })
-    header = styles.add_style :bg_color => '00', :fg_color => 'FF', :b => true
-
-
-    wb.add_worksheet(:name => 'CTC399 Password Hashes') do  |ws|
-        ws.add_row ['CTC399 Password Hashes Questions - Kevin Ramirez (Student ID# 211141309)'], :style => title
-        ws.add_row
-        ws.add_row ['Questions', 'Answers', 'Wordlist', 'Encryption'], :style => header
-
-        row_data.each do |p|
-            ws.add_row [p[:question], p[:answer], p[:list], p[:encryption]]
-        end
-        
-        ws.column_widths 96, 26, 15, 25 
-    end
+  puts "#{file_name}.xlsx created successfully in #{File.dirname("#{file_name}.xlsx")}"
 end
-p.serialize 'test.xlsx'
+# END METHODS ******************************************************
+
+# Main program start
+
+  print "\nEnter input text file (wordlist): "
+  text_input_file = gets.chomp
+
+  if (File.exists?(text_input_file))
+    print "\nEnter desired username: "
+    user_name = gets.chomp
+  
+    print "\nEnter number of lines to parse: "
+    line_num = gets.chomp.to_i
+  
+    print "\nEnter name for spreadsheet: "
+    file_name = gets.chomp
+
+    # row_data objects includes: (question, answer, wordlist, encryption)
+    row_data = create_password_objects(text_input_file, line_num, user_name)
+    create_spreadsheet(row_data, file_name)
+  else
+    puts "ERROR: file does not exist, command abort!"
+  end
