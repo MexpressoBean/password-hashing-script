@@ -2073,7 +2073,6 @@ gretzky
 grizzly
 grumpy
 guess
-guido
 guitar1
 gumby
 gustavo

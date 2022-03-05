@@ -16,7 +16,7 @@ def read_in_txt_from_wordlist(list, line_count)
 end
 
 
-badwords = read_in_txt_from_wordlist("john.txt", 2000)
+badwords = read_in_txt_from_wordlist("john.txt", 2390)
 
 badwords.each do |w|
     puts w
