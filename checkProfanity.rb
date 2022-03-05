@@ -8,7 +8,7 @@ end
 require "swearjar"
 
 # ****************************************************
-def read_in_txt_from_wordlist(list, line_count)
+def filter_out_profanity(list, line_count)
     sj = Swearjar.default
     lines = File.foreach(list).first(line_count) # return array of strings
 
@@ -16,7 +16,7 @@ def read_in_txt_from_wordlist(list, line_count)
 end
 
 
-badwords = read_in_txt_from_wordlist("john.txt", 2390)
+badwords = filter_out_profanity("john.txt", 1500)
 
 badwords.each do |w|
     puts w
