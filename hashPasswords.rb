@@ -7,10 +7,10 @@ gemfile do
   gem 'scrypt', '~> 2.0', '>= 2.0.2'
 end
 
-require 'axlsx'
-require 'openssl'
-require 'bcrypt'
-require 'scrypt'
+require 'axlsx'   # For spreadsheet creation
+require 'openssl' # For sha256, sha512, & md5 hashing methods
+require 'bcrypt'  # For bcrypt hashing method
+require 'scrypt'  # For scrypt hashing method
 
 # methods
 def read_in_txt_from_wordlist(list, line_count)
